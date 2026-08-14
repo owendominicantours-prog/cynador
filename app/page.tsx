@@ -16,10 +16,11 @@ import {
   ShieldCheck,
   Sparkles,
   Workflow,
+  Smartphone,
 } from 'lucide-react';
 import { CTA } from '@/components/CTA';
 import { ProjectCard } from '@/components/ProjectCard';
-import { industries, markets, projects, services, totalProgrammaticPages } from '@/lib/site-data';
+import { industries, markets, proactivitisPlayStore, projects, services, totalProgrammaticPages } from '@/lib/site-data';
 
 const nodes = [
   { src: '/visuals/nodes/node-brand.png', label: 'MARCA', className: 'node-brand' },
@@ -111,17 +112,20 @@ export default function Home() {
           <div className="case-copy">
             <span className="kicker">Caso principal · Proactivitis</span>
             <h2>No construimos un sitio turístico.<br />Construimos una <em>máquina de demanda.</em></h2>
-            <p>{featured.summary} La plataforma une catálogo, reservas, contenido, SEO programático y operación en un solo sistema.</p>
+            <p>{featured.summary} La solución une catálogo, reservas, contenido, SEO programático, aplicación móvil y operación en un solo sistema.</p>
             <div className="case-metrics">
               {featured.metrics?.map((metric) => <div key={metric.label}><b>{metric.value}</b><span>{metric.label}</span></div>)}
             </div>
             <p className="metric-disclaimer">Resultados actuales informados por la operación de Proactivitis. No representan una garantía para otros proyectos.</p>
-            <Link className="text-link" href="/casos/proactivitis">Estudiar el caso completo <ArrowRight size={17} /></Link>
+            <div className="case-links">
+              <Link className="text-link" href="/casos/proactivitis">Estudiar el caso completo <ArrowRight size={17} /></Link>
+              <a className="text-link play-link" href={proactivitisPlayStore} target="_blank" rel="noreferrer"><Smartphone size={16} /> Ver app en Google Play <ArrowUpRight size={15} /></a>
+            </div>
           </div>
           <div className="case-browser">
             <div className="browser-bar"><i /><i /><i /><span>proactivitis.com</span></div>
             <Image src={featured.image} width={1440} height={900} alt="Plataforma Proactivitis desarrollada por Cynador" />
-            <div className="case-badge"><span>Activo digital</span><b>SEO + RESERVAS + OPERACIÓN</b></div>
+            <div className="case-badge"><span>Ecosistema digital</span><b>WEB + APP + SEO + RESERVAS</b></div>
           </div>
         </div>
       </section>

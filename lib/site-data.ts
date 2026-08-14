@@ -21,6 +21,7 @@ import {
 export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cynador.vercel.app';
 export const whatsappNumber = '18295539900';
 export const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+export const proactivitisPlayStore = 'https://play.google.com/store/apps/details?id=com.proactivitis.app';
 
 export type Service = {
   slug: string;
@@ -187,13 +188,14 @@ export const projects: Project[] = [
     name: 'Proactivitis',
     url: 'https://proactivitis.com',
     image: '/projects/proactivitis.png',
-    category: 'Plataforma turística + SEO programático',
-    summary: 'Marketplace de experiencias, traslados y reservas construido como una operación digital completa.',
+    category: 'Plataforma + app Android + SEO programático',
+    summary: 'Ecosistema de experiencias, traslados y reservas con plataforma web, aplicación Android y una operación digital completa.',
     featured: true,
     metrics: [
       { value: '60K+', label: 'URLs indexadas' },
       { value: '≈ US$4K', label: 'facturación mensual orgánica' },
       { value: '24/7', label: 'operación digital' },
+      { value: 'Android', label: 'app publicada en Google Play' },
     ],
   },
   { slug: 'casa-de-campo', name: 'Casa de Campo Experiences', url: 'https://casadecampoexperiences.com', image: '/projects/casadecampo.png', category: 'Experiencias premium', summary: 'Catálogo de experiencias y servicios para un destino internacional de lujo.' },
