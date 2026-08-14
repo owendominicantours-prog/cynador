@@ -28,7 +28,6 @@ export const metadata: Metadata = {
     images: [{ url: '/projects/proactivitis.png', width: 1440, height: 900 }],
   },
   twitter: { card: 'summary_large_image' },
-  icons: { icon: '/logo-cynador.png', apple: '/logo-cynador.png' },
 };
 
 export const viewport: Viewport = {
