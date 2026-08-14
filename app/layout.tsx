@@ -1,22 +1,51 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { Manrope, Space_Grotesk } from 'next/font/google';
+import { Footer } from '@/components/Footer';
+import { Header } from '@/components/Header';
+import { siteUrl } from '@/lib/site-data';
 import './globals.css';
 
+const manrope = Manrope({ subsets: ['latin'], variable: '--font-body', display: 'swap' });
+const space = Space_Grotesk({ subsets: ['latin'], variable: '--font-display', display: 'swap' });
+
 export const metadata: Metadata = {
-  title: 'Cynador | Marketing Online, Diseno Web y SEO en Punta Cana',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'CYNADOR — Diseño web, desarrollo y SEO de alto nivel',
+    template: '%s | CYNADOR',
+  },
   description:
-    'Agencia de marketing digital en Punta Cana: paginas web, SEO, redes sociales, hosting, branding y estrategia digital para negocios que quieren vender mas.',
+    'Diseñamos y desarrollamos páginas web premium, plataformas digitales y sistemas SEO para empresas que quieren crecer. Proyectos desde US$2,000.',
+  keywords: ['diseño web premium', 'desarrollo web', 'agencia SEO', 'Next.js', 'SEO programático'],
+  alternates: { canonical: '/' },
   openGraph: {
-    title: 'Cynador | Marketing Online & Diseno Web',
-    description: 'Diseno web, SEO, redes sociales y estrategia digital en Punta Cana.',
+    title: 'CYNADOR — Digital Business Engine',
+    description: 'Diseño, desarrollo web y SEO para empresas que no compiten por ser las más baratas.',
     type: 'website',
     locale: 'es_DO',
+    url: '/',
+    siteName: 'Cynador',
+    images: [{ url: '/projects/proactivitis.png', width: 1440, height: 900 }],
   },
+  twitter: { card: 'summary_large_image' },
+  icons: { icon: '/logo-cynador.png', apple: '/logo-cynador.png' },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#030814',
+  colorScheme: 'dark',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
-      <body>{children}</body>
+    <html lang="es" className={`${manrope.variable} ${space.variable}`}>
+      <body>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

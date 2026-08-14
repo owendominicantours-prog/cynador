@@ -1,297 +1,212 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import {
   ArrowRight,
+  ArrowUpRight,
   BadgeCheck,
   BarChart3,
-  Brush,
-  CheckCircle2,
+  Braces,
+  Check,
+  ChevronRight,
   Code2,
+  Gauge,
   Globe2,
   Layers3,
-  Megaphone,
-  MessageCircle,
-  PenTool,
-  Phone,
   Search,
-  ServerCog,
-  Smartphone,
-  Target,
+  ShieldCheck,
+  Sparkles,
+  Workflow,
 } from 'lucide-react';
+import { CTA } from '@/components/CTA';
+import { ProjectCard } from '@/components/ProjectCard';
+import { industries, markets, projects, services, totalProgrammaticPages } from '@/lib/site-data';
 
-const whatsapp = 'https://wa.me/18295539900';
-
-const services = [
-  {
-    icon: Code2,
-    title: 'Diseno y desarrollo web',
-    text: 'Paginas web claras, rapidas y preparadas para captar clientes desde Google, redes sociales y WhatsApp.',
-    bullets: ['Web corporativa', 'Landing pages', 'Catalogos y formularios'],
-  },
-  {
-    icon: Search,
-    title: 'SEO y posicionamiento',
-    text: 'Estructura, contenido y optimizacion local para que tu negocio pueda aparecer cuando el cliente busca.',
-    bullets: ['SEO local', 'Contenido comercial', 'Google Business Profile'],
-  },
-  {
-    icon: Megaphone,
-    title: 'Publicidad digital',
-    text: 'Campanas con mensajes claros, audiencias definidas y paginas listas para convertir trafico en oportunidades.',
-    bullets: ['Google Ads', 'Meta Ads', 'Embudos de venta'],
-  },
-  {
-    icon: Brush,
-    title: 'Branding y diseno grafico',
-    text: 'Identidad visual, piezas publicitarias y direccion creativa para que tu marca se vea seria y recordable.',
-    bullets: ['Logo y manual basico', 'Creatividades', 'Material comercial'],
-  },
-  {
-    icon: Smartphone,
-    title: 'Redes sociales',
-    text: 'Contenido, calendario y piezas enfocadas en explicar tu oferta y mantener presencia profesional.',
-    bullets: ['Plan mensual', 'Diseno de posts', 'Contenido para reels'],
-  },
-  {
-    icon: ServerCog,
-    title: 'Hosting, soporte y mantenimiento',
-    text: 'Acompanamiento tecnico para que tu web siga funcionando, cargue bien y se pueda actualizar sin caos.',
-    bullets: ['Hosting', 'Dominio', 'Soporte tecnico'],
-  },
-];
-
-const industries = [
-  ['Turismo y excursiones', 'Landing pages, catalogos, reservas por WhatsApp y SEO local para destinos.'],
-  ['Rent car y transporte', 'Flotas, vehiculos, rutas, formularios y paginas listas para solicitudes.'],
-  ['Restaurantes y comercios', 'Menus digitales, Google Maps, promociones y presencia local clara.'],
-  ['Servicios profesionales', 'Web seria, prueba de confianza, formularios y captacion de clientes.'],
+const nodes = [
+  { src: '/visuals/nodes/node-brand.png', label: 'MARCA', className: 'node-brand' },
+  { src: '/visuals/nodes/node-web.png', label: 'WEB', className: 'node-web' },
+  { src: '/visuals/nodes/node-search.png', label: 'GOOGLE', className: 'node-search' },
+  { src: '/visuals/nodes/node-bookings.png', label: 'SISTEMAS', className: 'node-bookings' },
+  { src: '/visuals/nodes/node-sales.png', label: 'VENTAS', className: 'node-sales' },
 ];
 
 const process = [
-  ['01', 'Diagnostico', 'Revisamos tu negocio, oferta, competencia y canales actuales.'],
-  ['02', 'Estrategia', 'Definimos estructura, mensaje, servicios, SEO y llamadas a la accion.'],
-  ['03', 'Produccion', 'Disenamos, desarrollamos y dejamos tu presencia digital lista para operar.'],
-  ['04', 'Mejora continua', 'Medimos, corregimos y agregamos contenido o campanas segun resultados.'],
-];
-
-const packages = [
-  ['Presencia inicial', 'Para negocios que necesitan verse profesionales rapido.', 'Web base + WhatsApp + contacto'],
-  ['Crecimiento local', 'Para empresas que quieren posicionarse y recibir mas solicitudes.', 'Web + SEO local + contenido'],
-  ['Marketing completo', 'Para marcas que necesitan web, publicidad, redes y soporte.', 'Estrategia + campanas + soporte'],
+  { number: '01', name: 'Descubrimos', text: 'Entendemos el negocio, la oferta, los datos y la oportunidad antes de dibujar una pantalla.' },
+  { number: '02', name: 'Diseñamos', text: 'Creamos la arquitectura, el mensaje y la experiencia que justifican una decisión premium.' },
+  { number: '03', name: 'Construimos', text: 'Desarrollamos código, contenido, integraciones y medición con una base que puede crecer.' },
+  { number: '04', name: 'Escalamos', text: 'Activamos SEO, nuevas rutas e iteraciones usando señales reales del mercado.' },
 ];
 
 export default function Home() {
+  const featured = projects[0];
+
   return (
     <main>
-      <header className="site-header">
-        <a className="brand" href="#inicio" aria-label="Cynador inicio">
-          <img src="/logo-cynador.png" alt="Cynador" />
-        </a>
-        <nav aria-label="Principal">
-          <a href="#servicios">Servicios</a>
-          <a href="#soluciones">Soluciones</a>
-          <a href="#proceso">Proceso</a>
-          <a href="#contacto">Contacto</a>
-        </nav>
-        <a className="header-cta" href={`${whatsapp}?text=Hola%20Cynador%2C%20quiero%20informacion%20sobre%20sus%20servicios`} target="_blank" rel="noreferrer">
-          WhatsApp
-        </a>
-      </header>
-
-      <section id="inicio" className="hero">
-        <div className="hero-bg" />
-        <div className="wrap hero-grid">
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="hero-grid-lines" aria-hidden="true" />
+        <div className="hero-stars" aria-hidden="true" />
+        <div className="wrap hero-layout">
           <div className="hero-copy">
-            <span className="eyebrow"><BadgeCheck size={16} /> Advertising, Marketing Online & Design</span>
-            <h1>Una web clara para vender tus servicios sin explicar de mas.</h1>
-            <p>
-              Cynador crea paginas web, SEO, publicidad digital, branding y soporte para negocios que necesitan una
-              presencia profesional, facil de entender y lista para convertir visitas en contactos reales.
-            </p>
+            <span className="eyebrow"><span className="live-dot" /> Digital business engine</span>
+            <h1 id="hero-title">No hacemos<br /><span>páginas baratas.</span><br />Construimos <em>ventajas.</em></h1>
+            <p>Diseño web, desarrollo y SEO para empresas que quieren convertirse en la referencia de su mercado.</p>
             <div className="hero-actions">
-              <a className="primary-btn" href="#servicios">Ver servicios <ArrowRight size={18} /></a>
-              <a className="secondary-btn" href={`${whatsapp}?text=Hola%20Cynador%2C%20quiero%20una%20propuesta%20para%20mi%20negocio`} target="_blank" rel="noreferrer">
-                Pedir propuesta
-              </a>
+              <Link className="primary-btn" href="/contacto">Iniciar un proyecto <ArrowRight size={18} /></Link>
+              <Link className="ghost-btn" href="/casos/proactivitis"><span className="play-dot">↗</span> Ver cómo escalamos Proactivitis</Link>
+            </div>
+            <div className="hero-qualifier">
+              <span>Proyectos web desde <b>US$2,000</b></span>
+              <span>Sistemas desde <b>US$5,000</b></span>
             </div>
           </div>
 
-          <aside className="hero-panel">
-            <div className="panel-top">
-              <span>Plan digital</span>
-              <b>Web + SEO + Marketing</b>
-            </div>
-            <div className="panel-card active">
-              <Globe2 />
-              <div>
-                <strong>Pagina web profesional</strong>
-                <p>Estructura clara, rapida y enfocada en conversion.</p>
+          <div className="engine" aria-label="Cynador conecta marca, web, posicionamiento, sistemas y ventas">
+            <div className="engine-orbit orbit-one" />
+            <div className="engine-orbit orbit-two" />
+            <Image className="engine-core" src="/visuals/hero/cynador-engine-core.png" width={1100} height={1100} priority alt="Motor digital Cynador" />
+            {nodes.map((node) => (
+              <div className={`engine-node ${node.className}`} key={node.label}>
+                <Image src={node.src} width={320} height={320} alt="" />
+                <b>{node.label}</b>
               </div>
-            </div>
-            <div className="panel-card">
-              <Target />
-              <div>
-                <strong>Mensaje comercial</strong>
-                <p>Textos pensados para explicar, generar confianza y vender.</p>
-              </div>
-            </div>
-            <div className="panel-card">
-              <BarChart3 />
-              <div>
-                <strong>Base para crecer</strong>
-                <p>SEO, campanas, redes y soporte segun la etapa del negocio.</p>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section className="trust-strip">
-        <div className="wrap trust-grid">
-          <article><Code2 /><strong>Desarrollo web</strong><span>Next.js, paginas rapidas y responsive</span></article>
-          <article><Search /><strong>SEO local</strong><span>Contenido y estructura para Google</span></article>
-          <article><MessageCircle /><strong>WhatsApp directo</strong><span>Flujos simples para captar clientes</span></article>
-          <article><PenTool /><strong>Diseno comercial</strong><span>Marca clara, limpia y profesional</span></article>
-        </div>
-      </section>
-
-      <section id="servicios" className="section">
-        <div className="wrap section-head">
-          <span className="kicker">Servicios independientes</span>
-          <h2>Elige lo que necesitas ahora y escala cuando el negocio lo pida.</h2>
-          <p>Cada servicio funciona por separado, pero tambien puede combinarse en un sistema completo de ventas digitales.</p>
-        </div>
-        <div className="wrap services-grid">
-          {services.map((service) => (
-            <article className="service-card" key={service.title}>
-              <service.icon />
-              <h3>{service.title}</h3>
-              <p>{service.text}</p>
-              <ul>
-                {service.bullets.map((item) => <li key={item}><CheckCircle2 size={16} /> {item}</li>)}
-              </ul>
-              <a href={`${whatsapp}?text=Hola%20Cynador%2C%20quiero%20informacion%20sobre%20${encodeURIComponent(service.title)}`} target="_blank" rel="noreferrer">
-                Cotizar servicio <ArrowRight size={16} />
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="soluciones" className="section soft-section">
-        <div className="wrap split">
-          <div>
-            <span className="kicker">Soluciones reales</span>
-            <h2>Especialistas en negocios que necesitan confianza antes de vender.</h2>
-            <p>
-              Trabajamos la web como una herramienta comercial: que el visitante entienda rapido quien eres, que vendes,
-              por que confiar y como contactarte.
-            </p>
-            <div className="checklist">
-              <span><CheckCircle2 /> Mensaje claro desde el primer scroll.</span>
-              <span><CheckCircle2 /> Servicios separados y faciles de cotizar.</span>
-              <span><CheckCircle2 /> Botones de WhatsApp y llamada visibles.</span>
-              <span><CheckCircle2 /> Estructura preparada para crecer con SEO.</span>
-            </div>
-          </div>
-          <div className="industry-grid">
-            {industries.map(([title, text]) => (
-              <article key={title}>
-                <Layers3 />
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </article>
             ))}
           </div>
+
+          <aside className="hero-metrics" aria-label="Capacidades">
+            <div><b>01</b><span>ESTRATEGIA</span><svg viewBox="0 0 130 30"><path d="M2 25 18 20 31 21 47 12 62 16 77 8 92 11 110 3 128 6" /></svg></div>
+            <div><b>02</b><span>DESARROLLO</span><svg viewBox="0 0 130 30"><path d="M2 26 18 24 31 18 47 20 62 9 77 13 92 8 110 10 128 2" /></svg></div>
+            <div><b>03</b><span>CRECIMIENTO</span><svg viewBox="0 0 130 30"><path d="M2 27 18 26 31 23 47 20 62 18 77 12 92 14 110 5 128 1" /></svg></div>
+          </aside>
+        </div>
+        <div className="hero-trust wrap">
+          <span><BadgeCheck size={17} /> Estrategia antes de diseño</span>
+          <span><Code2 size={17} /> Código propio y escalable</span>
+          <span><Search size={17} /> SEO desde la arquitectura</span>
+          <span><ShieldCheck size={17} /> Proyectos de inversión seria</span>
         </div>
       </section>
 
-      <section className="section">
-        <div className="wrap section-head">
-          <span className="kicker">Formas de trabajar</span>
-          <h2>Paquetes claros para no empezar a ciegas.</h2>
-        </div>
-        <div className="wrap package-grid">
-          {packages.map(([title, text, detail]) => (
-            <article className="package-card" key={title}>
-              <span>{detail}</span>
-              <h3>{title}</h3>
-              <p>{text}</p>
-              <a href={`${whatsapp}?text=Hola%20Cynador%2C%20quiero%20informacion%20sobre%20el%20plan%20${encodeURIComponent(title)}`} target="_blank" rel="noreferrer">
-                Solicitar informacion
-              </a>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="proceso" className="section process-section">
-        <div className="wrap section-head center">
-          <span className="kicker">Proceso</span>
-          <h2>Orden para avanzar sin perder tiempo.</h2>
-        </div>
-        <div className="wrap process-grid">
-          {process.map(([num, title, text]) => (
-            <article key={num}>
-              <b>{num}</b>
-              <h3>{title}</h3>
-              <p>{text}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section id="contacto" className="section contact-section">
-        <div className="wrap contact-grid">
-          <div className="contact-copy">
-            <span className="kicker">Contacto</span>
-            <h2>Cuéntanos que negocio tienes y que necesitas vender.</h2>
-            <p>
-              Te podemos orientar con web, SEO, publicidad, redes, branding o soporte tecnico. El primer paso es entender
-              tu oferta y el objetivo real.
-            </p>
-            <div className="contact-lines">
-              <a href="tel:+18295539900"><Phone size={18} /> +1 (829) 553-9900</a>
-              <a href={`${whatsapp}?text=Hola%20Cynador%2C%20quiero%20hablar%20sobre%20mi%20proyecto`} target="_blank" rel="noreferrer">
-                <MessageCircle size={18} /> Escribir por WhatsApp
-              </a>
-            </div>
+      <section className="section manifesto">
+        <div className="wrap manifesto-grid">
+          <div>
+            <span className="kicker">La diferencia</span>
+            <h2>Tu competencia tiene una web.<br />Nosotros construiremos tu <em>ventaja.</em></h2>
           </div>
-
-          <form className="contact-form">
-            <label>Nombre</label>
-            <input placeholder="Tu nombre" />
-            <label>WhatsApp</label>
-            <input placeholder="+1 ..." />
-            <label>Servicio</label>
-            <select defaultValue="">
-              <option value="" disabled>Selecciona una opcion</option>
-              <option>Diseno y desarrollo web</option>
-              <option>SEO y posicionamiento</option>
-              <option>Publicidad digital</option>
-              <option>Branding y diseno grafico</option>
-              <option>Redes sociales</option>
-              <option>Hosting y soporte</option>
-            </select>
-            <label>Mensaje</label>
-            <textarea rows={5} placeholder="Describe brevemente tu negocio o idea" />
-            <a className="primary-btn full" href={`${whatsapp}?text=Hola%20Cynador%2C%20quiero%20una%20propuesta%20para%20mi%20negocio`} target="_blank" rel="noreferrer">
-              Enviar por WhatsApp <ArrowRight size={18} />
-            </a>
-          </form>
+          <p>Una página bonita puede llamar la atención. Una plataforma pensada como negocio conecta percepción, tecnología, demanda y conversión para producir valor durante años.</p>
+        </div>
+        <div className="wrap capability-line">
+          {[
+            [Globe2, 'Estrategia', 'Entender dónde se crea el valor.'],
+            [Sparkles, 'Diseño', 'Hacer que el precio se sienta lógico.'],
+            [Braces, 'Código', 'Convertir la visión en un activo.'],
+            [BarChart3, 'Crecimiento', 'Capturar demanda de forma acumulativa.'],
+          ].map(([Icon, title, text], index) => {
+            const CapabilityIcon = Icon as typeof Globe2;
+            return <article key={String(title)}><CapabilityIcon /><span className="cap-number">0{index + 1}</span><h3>{String(title)}</h3><p>{String(text)}</p></article>;
+          })}
         </div>
       </section>
 
-      <footer className="footer">
-        <div className="footer-brand">
-          <img src="/logo-cynador.png" alt="Cynador" />
-          <p>Advertising, Marketing Online & Design - Diseno y Desarrollo Web.</p>
+      <section className="section case-section">
+        <div className="wrap case-grid">
+          <div className="case-copy">
+            <span className="kicker">Caso principal · Proactivitis</span>
+            <h2>No construimos un sitio turístico.<br />Construimos una <em>máquina de demanda.</em></h2>
+            <p>{featured.summary} La plataforma une catálogo, reservas, contenido, SEO programático y operación en un solo sistema.</p>
+            <div className="case-metrics">
+              {featured.metrics?.map((metric) => <div key={metric.label}><b>{metric.value}</b><span>{metric.label}</span></div>)}
+            </div>
+            <p className="metric-disclaimer">Resultados actuales informados por la operación de Proactivitis. No representan una garantía para otros proyectos.</p>
+            <Link className="text-link" href="/casos/proactivitis">Estudiar el caso completo <ArrowRight size={17} /></Link>
+          </div>
+          <div className="case-browser">
+            <div className="browser-bar"><i /><i /><i /><span>proactivitis.com</span></div>
+            <Image src={featured.image} width={1440} height={900} alt="Plataforma Proactivitis desarrollada por Cynador" />
+            <div className="case-badge"><span>Activo digital</span><b>SEO + RESERVAS + OPERACIÓN</b></div>
+          </div>
         </div>
-        <div className="footer-links">
-          <a href="#servicios">Servicios</a>
-          <a href="#soluciones">Soluciones</a>
-          <a href="#contacto">Contacto</a>
+      </section>
+
+      <section className="section services-section">
+        <div className="wrap section-head split-head">
+          <div><span className="kicker">Lo que construimos</span><h2>Tres disciplinas.<br />Un solo estándar.</h2></div>
+          <p>No administramos redes sociales. Diseñamos, desarrollamos y posicionamos activos digitales que el negocio puede controlar.</p>
         </div>
-        <p className="copyright">Copyright 2026 Cynador. Todos los derechos reservados.</p>
-      </footer>
+        <div className="wrap services-grid">
+          {services.map((service, index) => (
+            <Link className={`service-card service-${index + 1}`} href={`/servicios/${service.slug}`} key={service.slug}>
+              <span className="service-top"><service.icon /><small>Desde {service.from}</small></span>
+              <h3>{service.name}</h3>
+              <p>{service.promise}</p>
+              <ul>{service.deliverables.slice(0, 3).map((item) => <li key={item}><Check size={14} /> {item}</li>)}</ul>
+              <span className="service-link">Explorar servicio <ArrowUpRight size={16} /></span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="section portfolio-section">
+        <div className="wrap section-head split-head">
+          <div><span className="kicker">Trabajo en producción</span><h2>Webs reales.<br />Negocios reales.</h2></div>
+          <div><p>No presentamos conceptos que nunca salieron al mercado. Estas plataformas están activas y puedes visitarlas.</p><Link className="text-link" href="/proyectos">Ver todos los proyectos <ArrowRight size={16} /></Link></div>
+        </div>
+        <div className="wrap projects-grid">
+          {projects.slice(0, 5).map((project, index) => <ProjectCard project={project} large={index === 0} key={project.slug} />)}
+        </div>
+      </section>
+
+      <section className="section technology-section">
+        <div className="wrap technology-grid">
+          <div className="technology-copy">
+            <span className="kicker">Tecnología con propósito</span>
+            <h2>Diseñamos lo que otros dicen que es imposible.</h2>
+            <p>La tecnología no se muestra para impresionar desarrolladores. Se selecciona para crear velocidad, control, automatización y capacidad de crecer.</p>
+            <div className="tech-pills"><span>Next.js</span><span>TypeScript</span><span>APIs</span><span>Bases de datos</span><span>IA aplicada</span><span>Vercel</span></div>
+          </div>
+          <div className="technology-visual">
+            <Image src="/visuals/sections/technology-stack.png" width={1800} height={900} alt="Capas de tecnología: experiencia, interfaz, código, datos e inteligencia artificial" />
+            <div className="tech-labels"><span>EXPERIENCIA</span><span>INTERFAZ</span><span>CÓDIGO</span><span>DATOS</span><span>IA</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section seo-scale-section">
+        <div className="wrap seo-scale-grid">
+          <div>
+            <span className="kicker">Cynador también compite</span>
+            <h2>Una web no es una página.<br />Es un <em>territorio de búsqueda.</em></h2>
+            <p>Esta plataforma conecta {services.length} servicios, {industries.length} industrias y {markets.length} mercados para cubrir {totalProgrammaticPages.toLocaleString('en-US')} oportunidades comerciales sin depender de una sola landing.</p>
+            <Link className="primary-btn" href="/servicios/seo-programatico">Ver nuestra arquitectura SEO <ArrowRight size={17} /></Link>
+          </div>
+          <div className="seo-console">
+            <div className="console-head"><span className="live-dot" /> SEO COVERAGE ENGINE <b>ONLINE</b></div>
+            <div className="console-number">{totalProgrammaticPages.toLocaleString('en-US')}</div>
+            <span className="console-label">rutas comerciales conectadas</span>
+            <div className="console-bars"><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /><i /></div>
+            <div className="console-grid"><span><b>{services.length}</b> Servicios</span><span><b>{industries.length}</b> Industrias</span><span><b>{markets.length}</b> Mercados</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section process-section">
+        <div className="wrap section-head"><span className="kicker">Cómo trabajamos</span><h2>De una idea a un sistema<br />que puede vender.</h2></div>
+        <div className="wrap process-grid">
+          {process.map((step, index) => <article key={step.number}><b>{step.number}</b>{index < process.length - 1 && <ChevronRight className="process-arrow" />}<h3>{step.name}</h3><p>{step.text}</p></article>)}
+        </div>
+      </section>
+
+      <section className="section global-section">
+        <div className="wrap global-grid">
+          <div>
+            <span className="kicker">Origen local · Ambición global</span>
+            <h2>Nacimos en República Dominicana.<br />Construimos para el mundo.</h2>
+            <p>Entendemos el Caribe, los negocios internacionales y lo difícil que es vender confianza a distancia. Nuestra ubicación es un punto de partida, no una frontera.</p>
+            <div className="global-points"><span><Gauge /> Rendimiento global</span><span><Globe2 /> Arquitectura multilingüe</span><span><Workflow /> Operación remota</span><span><Layers3 /> Sistemas a medida</span></div>
+          </div>
+          <div className="global-map"><Image src="/visuals/sections/global-network-punta-cana.png" width={1700} height={900} alt="Red digital global con origen en República Dominicana" /><span>REPÚBLICA DOMINICANA<i /></span></div>
+        </div>
+      </section>
+
+      <CTA />
     </main>
   );
 }

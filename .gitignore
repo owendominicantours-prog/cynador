@@ -2,5 +2,12 @@ node_modules/
 .next/
 out/
 *.log
+*.tsbuildinfo
+qa-*.png
 .env
 .env.*
+!.env.example
+
+.vercel
+.env*
+!.env.example
