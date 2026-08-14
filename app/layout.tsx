@@ -38,9 +38,24 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Cynador',
+    url: siteUrl,
+    telephone: '+1-829-475-6298',
+    email: 'hola@cynador.com',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+1-829-475-6298',
+      contactType: 'sales',
+      availableLanguage: ['Spanish', 'English'],
+    },
+  };
   return (
     <html lang="es" className={`${manrope.variable} ${space.variable}`}>
       <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <Header />
         {children}
         <Footer />

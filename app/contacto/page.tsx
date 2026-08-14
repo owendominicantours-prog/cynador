@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import { CheckCircle2, Clock3, Mail, MessageCircle } from 'lucide-react';
+import { CheckCircle2, Clock3, Mail, MessageCircle, Phone } from 'lucide-react';
 import { ContactForm } from '@/components/ContactForm';
-import { whatsappUrl } from '@/lib/site-data';
+import { contactPhoneDisplay, whatsappUrl } from '@/lib/site-data';
 
 export const metadata: Metadata = {
   title: 'Iniciar un proyecto web',
@@ -30,6 +30,7 @@ export default function ContactPage() {
               <span><CheckCircle2 /> Plataformas desde US$5,000</span>
               <span><Clock3 /> Respuesta habitual en un día laborable</span>
               <a href="mailto:hola@cynador.com"><Mail /> hola@cynador.com</a>
+              <a href="tel:+18294756298"><Phone /> {contactPhoneDisplay}</a>
               <a href={`${whatsappUrl}?text=Hola%20Cynador%2C%20quiero%20hablar%20sobre%20un%20proyecto`} target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp directo</a>
             </div>
           </div>
