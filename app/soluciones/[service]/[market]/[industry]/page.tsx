@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { ArrowRight, CheckCircle2, CircleDollarSign, Gauge, Search, ShieldCheck } from 'lucide-react';
 import { CTA } from '@/components/CTA';
 import { JsonLd } from '@/components/JsonLd';
-import { getIndustry, getMarket, getService, industries, markets, services, solutionPath } from '@/lib/site-data';
+import { contactPhoneE164, getIndustry, getMarket, getService, industries, markets, services, solutionPath } from '@/lib/site-data';
 import { absoluteUrl, breadcrumbSchema, buildMetadata, pageId, schemaGraph, serviceSchema, webPageSchema } from '@/lib/seo';
 
 type Props = { params: Promise<{ service: string; market: string; industry: string }> };
@@ -65,7 +65,7 @@ export default async function SolutionPage({ params }: Props) {
           availableChannel: {
             '@type': 'ServiceChannel',
             serviceUrl: absoluteUrl(path),
-            servicePhone: { '@type': 'ContactPoint', telephone: '+1-829-475-6298', contactType: 'sales' },
+            servicePhone: { '@type': 'ContactPoint', telephone: contactPhoneE164, contactType: 'sales' },
           },
         },
         {

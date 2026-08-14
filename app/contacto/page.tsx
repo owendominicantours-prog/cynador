@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { CheckCircle2, Clock3, Mail, MessageCircle, Phone } from 'lucide-react';
 import { ContactForm } from '@/components/ContactForm';
 import { JsonLd } from '@/components/JsonLd';
-import { contactEmail, contactPhoneDisplay, whatsappUrl } from '@/lib/site-data';
+import { contactEmail, contactPhoneDisplay, contactPhoneE164, whatsappUrl } from '@/lib/site-data';
 import { breadcrumbSchema, buildMetadata, schemaGraph, webPageSchema } from '@/lib/seo';
 
 const title = 'Iniciar un proyecto web';
@@ -34,7 +34,7 @@ export default function ContactPage() {
               <span><CheckCircle2 /> Alcance y propuesta completamente a medida</span>
               <span><Clock3 /> Respuesta habitual en un día laborable</span>
               <a href={`mailto:${contactEmail}`}><Mail /> {contactEmail}</a>
-              <a href="tel:+18294756298"><Phone /> {contactPhoneDisplay}</a>
+              <a href={`tel:${contactPhoneE164}`}><Phone /> {contactPhoneDisplay}</a>
               <a href={`${whatsappUrl}?text=Hola%20Cynador%2C%20quiero%20hablar%20sobre%20un%20proyecto`} target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp directo</a>
             </div>
           </div>
