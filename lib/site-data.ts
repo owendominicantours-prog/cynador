@@ -34,7 +34,6 @@ export type Service = {
   deliverables: string[];
   outcomes: string[];
   icon: typeof Code2;
-  from: string;
 };
 
 export const services: Service[] = [
@@ -49,7 +48,6 @@ export const services: Service[] = [
     deliverables: ['Estrategia y arquitectura', 'Diseño UX/UI a medida', 'Sistema visual responsive', 'Prototipo y dirección de contenido'],
     outcomes: ['Mayor percepción de valor', 'Mensaje comercial más claro', 'Mejor calidad de oportunidades'],
     icon: Globe2,
-    from: 'US$2,000',
   },
   {
     slug: 'desarrollo-web-nextjs',
@@ -62,7 +60,6 @@ export const services: Service[] = [
     deliverables: ['Next.js y TypeScript', 'CMS o panel de gestión', 'Integraciones y APIs', 'QA, seguridad y despliegue'],
     outcomes: ['Carga más rápida', 'Menos dependencia técnica', 'Escalabilidad real'],
     icon: Code2,
-    from: 'US$2,500',
   },
   {
     slug: 'plataformas-y-sistemas-web',
@@ -75,7 +72,6 @@ export const services: Service[] = [
     deliverables: ['Descubrimiento funcional', 'Base de datos y permisos', 'Pagos y automatizaciones', 'Paneles y analítica'],
     outcomes: ['Procesos conectados', 'Menos trabajo manual', 'Nuevas fuentes de ingresos'],
     icon: Blocks,
-    from: 'US$5,000',
   },
   {
     slug: 'seo-tecnico',
@@ -88,7 +84,6 @@ export const services: Service[] = [
     deliverables: ['Auditoría técnica', 'Arquitectura semántica', 'Schema y sitemaps', 'Medición e indexación'],
     outcomes: ['Mayor cobertura orgánica', 'Mejor calidad técnica', 'Crecimiento acumulativo'],
     icon: Search,
-    from: 'US$2,000',
   },
   {
     slug: 'seo-programatico',
@@ -101,7 +96,6 @@ export const services: Service[] = [
     deliverables: ['Investigación de patrones', 'Modelo de contenido', 'Generación controlada', 'Hubs e interlinking'],
     outcomes: ['Cobertura de long tail', 'Publicación eficiente', 'Autoridad temática'],
     icon: Database,
-    from: 'US$3,500',
   },
   {
     slug: 'ecommerce-y-reservas',
@@ -114,7 +108,6 @@ export const services: Service[] = [
     deliverables: ['Catálogo y checkout', 'Stripe y métodos de pago', 'Reservas y disponibilidad', 'Correos transaccionales'],
     outcomes: ['Venta directa', 'Mejor conversión', 'Operación centralizada'],
     icon: ShoppingBag,
-    from: 'US$5,000',
   },
 ];
 

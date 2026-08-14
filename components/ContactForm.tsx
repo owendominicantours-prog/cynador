@@ -54,12 +54,12 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
             <option>E-commerce o reservas</option>
           </select>
         </label>
-        <label>Inversión prevista
-          <select name="budget" defaultValue="US$2,000 – US$5,000">
-            <option>US$2,000 – US$5,000</option>
-            <option>US$5,000 – US$10,000</option>
-            <option>US$10,000+</option>
-            <option>Necesito definirla</option>
+        <label>Enfoque de inversión
+          <select name="budget" defaultValue="Busco la mejor solución">
+            <option>Busco la mejor solución</option>
+            <option>Proyecto estratégico prioritario</option>
+            <option>Tengo un presupuesto aprobado</option>
+            <option>Necesito definir el alcance</option>
           </select>
         </label>
       </div>
@@ -70,7 +70,7 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
         {status === 'sending' ? <LoaderCircle className="spin" size={18} /> : <ArrowRight size={18} />}
         {status === 'sending' ? 'Enviando…' : 'Solicitar conversación estratégica'}
       </button>
-      <p className="form-note">Trabajamos proyectos desde US$2,000. No ofrecemos manejo de redes sociales.</p>
+      <p className="form-note">No competimos por ser la opción más económica. No ofrecemos manejo de redes sociales.</p>
       {message && <p className={`form-status ${status}`} role="status">{status === 'success' && <CheckCircle2 size={17} />}{message}</p>}
     </form>
   );

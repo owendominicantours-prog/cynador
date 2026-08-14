@@ -5,7 +5,7 @@ import { contactPhoneDisplay, whatsappUrl } from '@/lib/site-data';
 
 export const metadata: Metadata = {
   title: 'Iniciar un proyecto web',
-  description: 'Cuéntanos qué necesitas construir. Cynador trabaja diseño, desarrollo web y SEO con proyectos desde US$2,000.',
+  description: 'Cuéntanos qué necesitas construir. Cynador trabaja diseño, desarrollo web y SEO para empresas que buscan una solución premium.',
   alternates: { canonical: '/contacto' },
 };
 
@@ -24,10 +24,10 @@ export default function ContactPage() {
           <div>
             <span className="kicker">Antes de escribir</span>
             <h2>Elegimos proyectos donde podemos crear una diferencia real.</h2>
-            <p>No vendemos manejo de redes, plantillas de US$500 ni páginas construidas en dos días. Nuestro trabajo comienza entendiendo el negocio.</p>
+            <p>No vendemos manejo de redes, plantillas de bajo costo ni páginas construidas en dos días. Si el criterio principal es encontrar el menor precio, no somos el equipo adecuado.</p>
             <div className="checklist-stack">
-              <span><CheckCircle2 /> Inversión web desde US$2,000</span>
-              <span><CheckCircle2 /> Plataformas desde US$5,000</span>
+              <span><CheckCircle2 /> Proyectos digitales de inversión seria</span>
+              <span><CheckCircle2 /> Alcance y propuesta completamente a medida</span>
               <span><Clock3 /> Respuesta habitual en un día laborable</span>
               <a href="mailto:hola@cynador.com"><Mail /> hola@cynador.com</a>
               <a href="tel:+18294756298"><Phone /> {contactPhoneDisplay}</a>

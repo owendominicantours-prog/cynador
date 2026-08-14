@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: '%s | CYNADOR',
   },
   description:
-    'Diseñamos y desarrollamos páginas web premium, plataformas digitales y sistemas SEO para empresas que quieren crecer. Proyectos desde US$2,000.',
+    'Diseñamos y desarrollamos páginas web premium, plataformas digitales y sistemas SEO para empresas que quieren convertirse en referentes.',
   keywords: ['diseño web premium', 'desarrollo web', 'agencia SEO', 'Next.js', 'SEO programático'],
   alternates: { canonical: '/' },
   openGraph: {

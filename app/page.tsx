@@ -55,8 +55,8 @@ export default function Home() {
               <Link className="ghost-btn" href="/casos/proactivitis"><span className="play-dot">↗</span> Ver cómo escalamos Proactivitis</Link>
             </div>
             <div className="hero-qualifier">
-              <span>Proyectos web desde <b>US$2,000</b></span>
-              <span>Sistemas desde <b>US$5,000</b></span>
+              <span><b>No competimos por precio</b></span>
+              <span>Cada proyecto se construye <b>a medida</b></span>
             </div>
           </div>
 
@@ -138,7 +138,7 @@ export default function Home() {
         <div className="wrap services-grid">
           {services.map((service, index) => (
             <Link className={`service-card service-${index + 1}`} href={`/servicios/${service.slug}`} key={service.slug}>
-              <span className="service-top"><service.icon /><small>Desde {service.from}</small></span>
+              <span className="service-top"><service.icon /><small>Proyecto a medida</small></span>
               <h3>{service.name}</h3>
               <p>{service.promise}</p>
               <ul>{service.deliverables.slice(0, 3).map((item) => <li key={item}><Check size={14} /> {item}</li>)}</ul>
