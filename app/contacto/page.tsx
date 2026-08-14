@@ -1,17 +1,21 @@
 import type { Metadata } from 'next';
 import { CheckCircle2, Clock3, Mail, MessageCircle, Phone } from 'lucide-react';
 import { ContactForm } from '@/components/ContactForm';
-import { contactPhoneDisplay, whatsappUrl } from '@/lib/site-data';
+import { JsonLd } from '@/components/JsonLd';
+import { contactEmail, contactPhoneDisplay, whatsappUrl } from '@/lib/site-data';
+import { breadcrumbSchema, buildMetadata, schemaGraph, webPageSchema } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Iniciar un proyecto web',
-  description: 'Cuéntanos qué necesitas construir. Cynador trabaja diseño, desarrollo web y SEO para empresas que buscan una solución premium.',
-  alternates: { canonical: '/contacto' },
-};
+const title = 'Iniciar un proyecto web';
+const description = 'Cuéntanos qué necesitas construir. Cynador trabaja diseño, desarrollo web y SEO para empresas que buscan una solución premium.';
+export const metadata: Metadata = buildMetadata({ title, description, path: '/contacto', keywords: ['contactar agencia web', 'cotizar desarrollo web', 'proyecto SEO premium'] });
 
 export default function ContactPage() {
   return (
     <main className="interior-main">
+      <JsonLd data={schemaGraph([
+        webPageSchema({ path: '/contacto', name: title, description, type: 'ContactPage' }),
+        breadcrumbSchema('/contacto', [{ name: 'Inicio', path: '/' }, { name: 'Contacto', path: '/contacto' }]),
+      ])} />
       <section className="interior-hero">
         <div className="wrap">
           <span className="kicker">Iniciar un proyecto</span>
@@ -29,7 +33,7 @@ export default function ContactPage() {
               <span><CheckCircle2 /> Proyectos digitales de inversión seria</span>
               <span><CheckCircle2 /> Alcance y propuesta completamente a medida</span>
               <span><Clock3 /> Respuesta habitual en un día laborable</span>
-              <a href="mailto:hola@cynador.com"><Mail /> hola@cynador.com</a>
+              <a href={`mailto:${contactEmail}`}><Mail /> {contactEmail}</a>
               <a href="tel:+18294756298"><Phone /> {contactPhoneDisplay}</a>
               <a href={`${whatsappUrl}?text=Hola%20Cynador%2C%20quiero%20hablar%20sobre%20un%20proyecto`} target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp directo</a>
             </div>

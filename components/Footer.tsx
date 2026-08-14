@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
 import { Brand } from '@/components/Brand';
-import { contactPhoneDisplay, services, whatsappUrl } from '@/lib/site-data';
+import { contactEmail, contactPhoneDisplay, services, whatsappUrl } from '@/lib/site-data';
 
 export function Footer() {
   return (
@@ -27,7 +27,7 @@ export function Footer() {
         </div>
         <div>
           <b>Contacto</b>
-          <a href="mailto:hola@cynador.com"><Mail size={14} /> hola@cynador.com</a>
+          <a href={`mailto:${contactEmail}`}><Mail size={14} /> {contactEmail}</a>
           <a href="tel:+18294756298"><Phone size={14} /> {contactPhoneDisplay}</a>
           <a href={`${whatsappUrl}?text=Hola%20Cynador%2C%20quiero%20hablar%20sobre%20un%20proyecto`} target="_blank" rel="noreferrer">WhatsApp directo <ArrowUpRight size={14} /></a>
           <span><MapPin size={14} /> República Dominicana</span>

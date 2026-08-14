@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -19,8 +20,20 @@ import {
   Smartphone,
 } from 'lucide-react';
 import { CTA } from '@/components/CTA';
+import { JsonLd } from '@/components/JsonLd';
 import { ProjectCard } from '@/components/ProjectCard';
 import { industries, markets, proactivitisPlayStore, projects, services, totalProgrammaticPages } from '@/lib/site-data';
+import { buildMetadata, itemListSchema, organizationId, projectsItemList, schemaGraph, servicesItemList, webPageSchema } from '@/lib/seo';
+
+const homeTitle = 'Diseño web, desarrollo y SEO de alto nivel';
+const homeDescription = 'Cynador construye páginas web premium, plataformas, aplicaciones y sistemas SEO para empresas que quieren convertirse en la referencia de su mercado.';
+
+export const metadata: Metadata = buildMetadata({
+  title: homeTitle,
+  description: homeDescription,
+  path: '/',
+  keywords: ['agencia de marketing digital', 'diseño web premium', 'desarrollo web', 'agencia SEO', 'SEO programático', 'desarrollo de aplicaciones'],
+});
 
 const nodes = [
   { src: '/visuals/nodes/node-brand.png', label: 'MARCA', className: 'node-brand' },
@@ -42,6 +55,11 @@ export default function Home() {
 
   return (
     <main>
+      <JsonLd data={schemaGraph([
+        webPageSchema({ path: '/', name: homeTitle, description: homeDescription, mainEntityId: organizationId, primaryImage: '/projects/proactivitis.png' }),
+        itemListSchema({ path: '/', idSuffix: 'services', name: 'Servicios principales de Cynador', items: servicesItemList }),
+        itemListSchema({ path: '/', idSuffix: 'featured-projects', name: 'Proyectos destacados de Cynador', items: projectsItemList.slice(0, 5) }),
+      ])} />
       <section className="hero" aria-labelledby="hero-title">
         <div className="hero-grid-lines" aria-hidden="true" />
         <div className="hero-stars" aria-hidden="true" />

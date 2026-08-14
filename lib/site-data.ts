@@ -18,9 +18,10 @@ import {
   Utensils,
 } from 'lucide-react';
 
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cynador.vercel.app';
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://cynador.com';
 export const whatsappNumber = '18294756298';
 export const contactPhoneDisplay = '+1 (829) 475-6298';
+export const contactEmail = 'cynador@gmail.com';
 export const whatsappUrl = `https://wa.me/${whatsappNumber}`;
 export const proactivitisPlayStore = 'https://play.google.com/store/apps/details?id=com.proactivitis.app';
 

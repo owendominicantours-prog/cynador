@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowRight, CheckCircle2, CircleDollarSign, Gauge, Search, ShieldCheck } from 'lucide-react';
 import { CTA } from '@/components/CTA';
+import { JsonLd } from '@/components/JsonLd';
 import { getIndustry, getMarket, getService, industries, markets, services, solutionPath } from '@/lib/site-data';
+import { absoluteUrl, breadcrumbSchema, buildMetadata, pageId, schemaGraph, serviceSchema, webPageSchema } from '@/lib/seo';
 
 type Props = { params: Promise<{ service: string; market: string; industry: string }> };
 
@@ -19,12 +21,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!service || !market || !industry) return {};
   const title = `${service.shortName} para ${industry.name} en ${market.name}`;
   const description = `${service.name} para ${industry.name.toLowerCase()} en ${market.name}. Estrategia, diseño, desarrollo y SEO premium orientados a ${industry.conversion}.`;
-  return {
+  return buildMetadata({
     title,
     description,
-    alternates: { canonical: solutionPath(service, market, industry) },
-    openGraph: { title, description, type: 'website' },
-  };
+    path: solutionPath(service, market, industry),
+    keywords: [title, `${service.shortName} ${market.name}`, `${service.shortName} para ${industry.name}`, `agencia web ${market.name}`],
+  });
 }
 
 export default async function SolutionPage({ params }: Props) {
@@ -35,6 +37,8 @@ export default async function SolutionPage({ params }: Props) {
   if (!service || !market || !industry) notFound();
 
   const path = solutionPath(service, market, industry);
+  const serviceId = `${absoluteUrl(path)}#service`;
+  const faqId = `${absoluteUrl(path)}#faq`;
   const relatedServices = services.filter((item) => item.slug !== service.slug).slice(0, 3);
   const relatedIndustries = industries.filter((item) => item.slug !== industry.slug).slice(0, 4);
   const relatedMarkets = markets.filter((item) => item.slug !== market.slug && item.region === market.region).slice(0, 4);
@@ -44,24 +48,38 @@ export default async function SolutionPage({ params }: Props) {
     { question: `¿La solución incluye SEO para ${market.name}?`, answer: `La arquitectura técnica, el rendimiento, los metadatos y la indexación forman parte de la base. Una estrategia continua de contenidos y autoridad se define según la competencia y los objetivos.` },
     { question: `¿En cuánto tiempo puede estar listo el proyecto?`, answer: `Una web premium suele requerir entre 6 y 12 semanas. Plataformas e integraciones complejas se planifican por fases para proteger calidad, presupuesto y salida al mercado.` },
   ];
-  const jsonLd = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Service',
-      name: `${service.name} para ${industry.name} en ${market.name}`,
-      serviceType: service.name,
-      provider: { '@type': 'Organization', name: 'Cynador', url: 'https://cynador.vercel.app' },
-      areaServed: { '@type': 'Place', name: market.name },
-      audience: { '@type': 'BusinessAudience', audienceType: industry.name },
-      description: service.description,
-    },
-    { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((faq) => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } })) },
-    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://cynador.vercel.app' }, { '@type': 'ListItem', position: 2, name: service.name, item: `https://cynador.vercel.app/servicios/${service.slug}` }, { '@type': 'ListItem', position: 3, name: `${industry.name} en ${market.name}`, item: `https://cynador.vercel.app${path}` }] },
-  ];
+  const solutionTitle = `${service.shortName} para ${industry.name} en ${market.name}`;
+  const solutionDescription = `${service.description} Una solución especializada para ${industry.name.toLowerCase()} que buscan ${industry.conversion} en ${market.name}.`;
 
   return (
     <main className="interior-main solution-page">
-      {jsonLd.map((schema, index) => <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />)}
+      <JsonLd data={schemaGraph([
+        {
+          ...webPageSchema({ path, name: solutionTitle, description: solutionDescription, mainEntityId: serviceId }),
+          hasPart: { '@id': faqId },
+        },
+        breadcrumbSchema(path, [{ name: 'Inicio', path: '/' }, { name: 'Servicios', path: '/servicios' }, { name: service.name, path: `/servicios/${service.slug}` }, { name: `${industry.name} en ${market.name}`, path }]),
+        {
+          ...serviceSchema({ path, name: solutionTitle, description: solutionDescription, audience: industry.name, areaServed: market.name }),
+          category: service.name,
+          availableChannel: {
+            '@type': 'ServiceChannel',
+            serviceUrl: absoluteUrl(path),
+            servicePhone: { '@type': 'ContactPoint', telephone: '+1-829-475-6298', contactType: 'sales' },
+          },
+        },
+        {
+          '@type': 'FAQPage',
+          '@id': faqId,
+          url: absoluteUrl(path),
+          isPartOf: { '@id': pageId(path) },
+          mainEntity: faqs.map((faq) => ({
+            '@type': 'Question',
+            name: faq.question,
+            acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+          })),
+        },
+      ])} />
       <section className="interior-hero solution-hero">
         <div className="wrap">
           <nav className="breadcrumbs" aria-label="Migas de pan"><Link href="/">Cynador</Link><span>/</span><Link href={`/servicios/${service.slug}`}>{service.shortName}</Link><span>/</span><span>{market.name}</span></nav>
