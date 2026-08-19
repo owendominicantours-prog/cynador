@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { addWebsiteLead } from '@/lib/crm-store';
 
 export const runtime = 'nodejs';
 
@@ -27,6 +28,17 @@ export async function POST(request: Request) {
     if (name.length < 2 || company.length < 2 || details.length < 20 || !/^\S+@\S+\.\S+$/.test(email)) {
       return NextResponse.json({ error: 'Completa los datos del proyecto correctamente.' }, { status: 400 });
     }
+
+    await addWebsiteLead({
+      name,
+      company,
+      email,
+      phone,
+      service,
+      budget,
+      details,
+      source: 'Formulario de Cynador.com',
+    }).catch((error) => console.error('CRM lead capture failed', error));
 
     const gmailUser = process.env.GMAIL_USER;
     const gmailPassword = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, '');

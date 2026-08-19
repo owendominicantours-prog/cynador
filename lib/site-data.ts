@@ -201,6 +201,7 @@ export const projects: Project[] = [
   { slug: 'party-boat', name: 'Get Your Party Boat', url: 'https://www.getyourpartyboat.com', image: '/projects/party-boat.png', category: 'Experiencias y reservas', summary: 'Marca, catálogo y conversión para experiencias privadas en barco.' },
   { slug: 'santo-domingo', name: 'Santo Domingo Excursion', url: 'https://santodomingoexcursion.com', image: '/projects/santo-domingo.png', category: 'SEO de destino', summary: 'Captación especializada para tours culturales y privados.' },
   { slug: 'dominican-proactivitis', name: 'Dominican Proactivitis', url: 'https://www.dominicanproactivitis.com', image: '/projects/dominican-proactivitis.png', category: 'Portal turístico', summary: 'Cobertura de destinos y experiencias para viajeros internacionales.' },
+  { slug: 'funjet-operador', name: 'FunjetOperador', url: 'https://www.funjettouroperador.com', image: '/projects/funjet-operador.png', category: 'Tours, traslados y SEO programático', summary: 'Plataforma multilingüe de traslados y excursiones con reservas, cuentas de clientes, automatización comercial y una arquitectura SEO construida para crecer.' },
   { slug: 'forever-shining', name: 'Forever Shining', url: 'https://forevershining.vercel.app', image: '/projects/forevershining.png', category: 'Catálogo y marca', summary: 'Experiencia visual y comercial para una marca de producto.' },
 ];
 
