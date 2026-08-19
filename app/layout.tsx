@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import { Manrope, Space_Grotesk } from 'next/font/google';
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
@@ -6,6 +7,7 @@ import { JsonLd } from '@/components/JsonLd';
 import { siteUrl } from '@/lib/site-data';
 import { organizationSchema, schemaGraph, websiteSchema } from '@/lib/seo';
 import './globals.css';
+import Analytics from '@/components/Analytics.client';
 
 const manrope = Manrope({ subsets: ['latin'], variable: '--font-body', display: 'swap' });
 const space = Space_Grotesk({ subsets: ['latin'], variable: '--font-display', display: 'swap' });
@@ -41,14 +43,31 @@ export const viewport: Viewport = {
   colorScheme: 'dark',
 };
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${manrope.variable} ${space.variable}`}>
+      <head>
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="gtag-init" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_ID}', { page_path: window.location.pathname });`}
+            </Script>
+          </>
+        )}
+      </head>
+
       <body>
         <JsonLd data={schemaGraph([organizationSchema(), websiteSchema()])} />
         <Header />
         {children}
         <Footer />
+        {GA_ID && <Analytics />}
       </body>
     </html>
   );
