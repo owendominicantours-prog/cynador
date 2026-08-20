@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { addWebsiteLead } from '@/lib/crm-store';
+import { notifyCommandCenter } from '@/lib/command-center';
 
 export const runtime = 'nodejs';
 
@@ -39,6 +40,18 @@ export async function POST(request: Request) {
       details,
       source: 'Formulario de Cynador.com',
     }).catch((error) => console.error('CRM lead capture failed', error));
+
+    await notifyCommandCenter({
+      kind: 'MESSAGE',
+      sourceSite: 'cynador',
+      sourceBrand: 'Cynador',
+      externalId: `CYN-${Date.now()}`,
+      customer: { name, email, phone },
+      title: `${company} · ${service || 'Nuevo proyecto web'}`,
+      body: `Presupuesto: ${budget || 'No indicado'}. ${details}`,
+      priority: 'HIGH',
+      message: { channel: 'website', pageUrl: 'https://cynador.com/contacto' },
+    });
 
     const gmailUser = process.env.GMAIL_USER;
     const gmailPassword = process.env.GMAIL_APP_PASSWORD?.replace(/\s/g, '');
