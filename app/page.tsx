@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { TechnologyVisual } from '@/components/TechnologyVisual';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -184,10 +185,7 @@ export default function Home() {
             <p>La tecnología no se muestra para impresionar desarrolladores. Se selecciona para crear velocidad, control, automatización y capacidad de crecer.</p>
             <div className="tech-pills"><span>Next.js</span><span>TypeScript</span><span>APIs</span><span>Bases de datos</span><span>IA aplicada</span><span>Vercel</span></div>
           </div>
-          <div className="technology-visual">
-            <Image src="/visuals/sections/technology-stack.png" width={1800} height={900} alt="Capas de tecnología: experiencia, interfaz, código, datos e inteligencia artificial" />
-            <div className="tech-labels"><span>EXPERIENCIA</span><span>INTERFAZ</span><span>CÓDIGO</span><span>DATOS</span><span>IA</span></div>
-          </div>
+          <TechnologyVisual />
         </div>
       </section>
 
