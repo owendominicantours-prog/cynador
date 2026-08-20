@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Manrope, Space_Grotesk } from 'next/font/google';
+import Script from 'next/script';
 import { Footer } from '@/components/Footer';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { Header } from '@/components/Header';
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={`${manrope.variable} ${space.variable}`}>
       <body>
+        <Script src="https://proactivitis.com/support-widget.js?v=1" data-site="cynador" data-brand="Cynador" data-color="#00c8ff" strategy="afterInteractive" />
         <GoogleAnalytics />
         <JsonLd data={schemaGraph([organizationSchema(), websiteSchema()])} />
         <Header />
