@@ -49,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Script src="https://proactivitis.com/support-widget.js?v=1" data-site="cynador" data-brand="Cynador" data-color="#00c8ff" strategy="afterInteractive" />
         <GoogleAnalytics />
+        <Script id="ecosystem-analytics" src="https://proactivitis-ads-control.vercel.app/ecosystem-analytics.js" data-site="Cynador" strategy="afterInteractive" />
         <JsonLd data={schemaGraph([organizationSchema(), websiteSchema()])} />
         <Header />
         {children}
