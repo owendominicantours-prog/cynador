@@ -1,4 +1,5 @@
 import { get, put } from '@vercel/blob';
+import { readSnapshot, writeSnapshot, updateSnapshot } from './crm-file-store.mjs';
 import { emptyCrmData, type CrmActivity, type CrmClient, type CrmData, type CrmInvoice, type CrmLead, type CrmProject, type CrmTask } from './crm-types';
 
 export type { CrmData, CrmLead } from './crm-types';
@@ -20,6 +21,7 @@ function normalizeData(value: unknown): CrmData {
 }
 
 export async function readCrmData(): Promise<CrmData> {
+  if (process.env.CRM_STORAGE_DIR) return normalizeData(await readSnapshot(process.env.CRM_STORAGE_DIR, emptyCrmData));
   if (!process.env.BLOB_READ_WRITE_TOKEN) return emptyCrmData();
   try {
     const result = await get(CRM_BLOB_PATH, { access: 'private', useCache: false });
@@ -34,8 +36,9 @@ export async function readCrmData(): Promise<CrmData> {
 }
 
 export async function writeCrmData(value: CrmData): Promise<CrmData> {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) throw new Error('CRM storage is not configured.');
   const data = normalizeData({ ...value, updatedAt: new Date().toISOString() });
+  if (process.env.CRM_STORAGE_DIR) return writeSnapshot(process.env.CRM_STORAGE_DIR, data);
+  if (!process.env.BLOB_READ_WRITE_TOKEN) throw new Error('CRM storage is not configured.');
   await put(CRM_BLOB_PATH, JSON.stringify(data), {
     access: 'private',
     addRandomSuffix: false,
@@ -47,7 +50,6 @@ export async function writeCrmData(value: CrmData): Promise<CrmData> {
 }
 
 export async function addWebsiteLead(input: Omit<CrmLead, 'id' | 'stage' | 'value' | 'nextAction' | 'createdAt' | 'updatedAt'>) {
-  const data = await readCrmData();
   const now = new Date().toISOString();
   const lead: CrmLead = {
     ...input,
@@ -58,6 +60,8 @@ export async function addWebsiteLead(input: Omit<CrmLead, 'id' | 'stage' | 'valu
     createdAt: now,
     updatedAt: now,
   };
+  const append = (value: CrmData) => {
+  const data = normalizeData(value);
   data.leads.unshift(lead);
   data.activities.unshift({
     id: `activity-${crypto.randomUUID()}`,
@@ -65,6 +69,13 @@ export async function addWebsiteLead(input: Omit<CrmLead, 'id' | 'stage' | 'valu
     message: `Nuevo prospecto desde la web: ${lead.company} — ${lead.name}`,
     createdAt: now,
   });
-  await writeCrmData(data);
+  data.updatedAt = now;
+  return data;
+  };
+  if (process.env.CRM_STORAGE_DIR) {
+    await updateSnapshot(process.env.CRM_STORAGE_DIR, emptyCrmData, append);
+  } else {
+    await writeCrmData(append(await readCrmData()));
+  }
   return lead;
 }

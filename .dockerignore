@@ -1,0 +1,12 @@
+node_modules
+.git
+.next
+dist
+.env
+.env.*
+output
+tmp
+*.log
+**/api/migration-transfer
+api/migration-transfer.js
+api/_migration-transport.mjs

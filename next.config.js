@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  ...(process.env.SELF_HOSTED === 'true' ? { output: 'standalone', experimental: { cpus: 1 } } : {}),
   images: {
     formats: ['image/avif', 'image/webp'],
   },
